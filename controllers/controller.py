@@ -1,5 +1,5 @@
 from fastapi import APIRouter, HTTPException 
-from models.schemas import FileProcessingRequest 
+from models.schemas import InputModel
 from services.file_joiner import join_files 
 from services.filter_process import apply_filters 
 from utils.file_reader import read_file 
@@ -11,7 +11,7 @@ from utils.fileName_generator import generate_filename
 router = APIRouter()
 
 @router.post("/process") 
-def process_files(request: FileProcessingRequest): 
+def process_files(request: InputModel): 
     try: 
         join_result = join_files(request.files_and_join_info.primary_file, request.files_and_join_info.secondary_files)
 

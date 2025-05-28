@@ -106,7 +106,7 @@
 
 
 from typing import List, Optional, Literal
-from pydantic import BaseModel, Field, field_validator, root_validator
+from pydantic import BaseModel, Field, field_validator
 
 
 class JoinFile(BaseModel):
@@ -161,7 +161,7 @@ class FilesAndJoinInfo(BaseModel):
     primary_file: PrimaryFile
     secondary_files: List[JoinFile] = Field(default_factory=list)
 
-    @root_validator
+    @field_validator("primary_file")
     def validate_joins(cls, values):
         primary = values.get("primary_file")
         secondaries = values.get("secondary_files", [])
@@ -172,9 +172,9 @@ class FilesAndJoinInfo(BaseModel):
 
 class InputModel(BaseModel):
     files_and_join_info: FilesAndJoinInfo
-    filter: Optional[List[Filter]] = None
+    filter: Optional[List[Filter]]
 
-    @root_validator
+    @field_validator("files_and_join_info")
     def validate_filter_and_files(cls, values):
         files_info = values.get("files_and_join_info")
         filters = values.get("filter")

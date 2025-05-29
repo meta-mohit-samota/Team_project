@@ -5,7 +5,7 @@ from utils.logger import logger
 
 def join_files(primary_info, secondary_files): 
     try: 
-        primary_df = read_file(primary_info["Filename"]) 
+        primary_df = read_file(primary_info.filename) 
         sql.register("primary", primary_df)
 
         for secondary in secondary_files:
@@ -18,4 +18,3 @@ def join_files(primary_info, secondary_files):
         return primary_df
     except Exception as e:
         logger.error(f"Join error: {e}")
-        raise

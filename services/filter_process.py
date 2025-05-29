@@ -15,8 +15,7 @@ def apply_filters(df: pl.DataFrame, conditions: dict) -> pl.DataFrame:
             for expr in expressions[1:]: 
                 combined = combined | expr 
         else: 
-            raise ValueError("Invalid operator") 
+            logger.error("Invalid operator") 
         return df.filter(combined) 
     except Exception as e: 
         logger.error(f"Filter error: {e}") 
-        raise

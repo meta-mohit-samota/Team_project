@@ -3,7 +3,7 @@ import os
 from utils.path_util import INPUT_DIR,OUTPUT_DIR,getFullInputPath
 # from utils.path_util import get_input_path
 
-def read_file(path: str) -> pl.DataFrame: 
+def createDataframe(path: str) -> pl.DataFrame: 
     full_file_path = getFullInputPath(path)
     ext = os.path.splitext(full_file_path)[-1].lower() 
     if ext == ".csv": 

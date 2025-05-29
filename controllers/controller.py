@@ -92,14 +92,18 @@ def process_files(request: InputModel):
                 df_map[secondary_file_details.file_name] = read_file(secondary_file_details.file_name)
         
         logger.info(df_map)
+        # logger.info(request.filter)
+        if request.filter:
+            logger.info("filetr runn")
+            for file_details in request.filter:
+                logger.info("filetr runn")
 
-        # if request.filter:
-        #     for file_details in request.filter:
-        #         filter_file_name = file_details.file_name
-        #         logger.info(filter_file_name)
-        #         for exp in file_details.conditions.expressions:
-        #             apply_filters(df_map[filter_file_name],)
-        #             logger.info(file_details.conditions.expressions)
+                filter_file_name = file_details.file_name
+                logger.info(filter_file_name)
+                df_map[filter_file_name] = apply_filters(df_map[filter_file_name],file_details.conditions)
+
+        logger.info("After applying filter")
+        logger.info(df_map)
 
 
 

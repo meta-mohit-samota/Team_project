@@ -59,16 +59,51 @@ def process_files(request: InputModel):
         #     for 
         # # Apply filters if provided
 
-        df = read_file(condition.file_name)
-        logger.info(df)
-
+        
         # if request.filter:
         #     for condition in request.filter:
+                # df = read_file(request.file_name)
+                # logger.info(df)
                 # filtered_df = apply_filters(df, condition.conditions)
                 # output_path = OUTPUT_DIR / generate_filename()
                 # filtered_df.write_csv(output_path)
 
-        logger.info(request)
+        # logger.info(request.files_and_join_info.primary_file)
+        # logger.info(request.files_and_join_info.secondary_files)
+        # logger.info(request.filter)
+        # # logger.info(request.model_config)
+        # logger.info(request.files_and_join_info.primary_file.filename)
+        # logger.info(request.files_and_join_info.primary_file.join_columns)
+        
+        # for file_name in request.filter:
+        #     logger.info(file_name.file_name)
+        #     logger.info(file_name.conditions)
+        #     logger.info(file_name.conditions.expressions)
+        
+        # for fil in request.files_and_join_info.secondary_files:
+        #     logger.info(fil.file_name)
+        #     logger.info(fil.join_type)
+        #     logger.info(fil.join_columns)
+
+        primary_file = request.files_and_join_info.primary_file.filename
+        df_map = {primary_file:read_file(primary_file) }
+        if request.files_and_join_info.secondary_files:
+            for secondary_file_details in request.files_and_join_info.secondary_files:
+                df_map[secondary_file_details.file_name] = read_file(secondary_file_details.file_name)
+        
+        logger.info(df_map)
+
+        # if request.filter:
+        #     for file_details in request.filter:
+        #         filter_file_name = file_details.file_name
+        #         logger.info(filter_file_name)
+        #         for exp in file_details.conditions.expressions:
+        #             apply_filters(df_map[filter_file_name],)
+        #             logger.info(file_details.conditions.expressions)
+
+
+
+
         return {"message": request}
     except Exception as e:
         logger.error(f"API error: {e}", exc_info=True)

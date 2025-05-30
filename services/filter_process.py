@@ -167,7 +167,7 @@ class DataFrameFilterService:
 
         try:
             filter_expressions_strings = conditions.expressions
-            logical_operator = LogicalOperator.AND if conditions.operator == "And" else LogicalOperator.OR  # This is now a LogicalOperator Enum member
+            logical_operator = LogicalOperator(conditions.operator)  # This is now a LogicalOperator Enum member
 
             # Step 1: Parse all string expressions into Polars expressions
             parsed_polars_expressions: List[pl.Expr] = []

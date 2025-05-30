@@ -1,8 +1,9 @@
 from fastapi import APIRouter,HTTPException
 from models.schemas import InputModel
-from services.file_joiner import join_files
+# from services.file_joiner import join_files
 # from services.filter_process import apply_filters
 # from utils.file_reader import createDataframe # create datafame
+from services.file_joiner import join_dataframes
 from utils.file_reader import load_data_from_file
 from utils.path_util import getFullOutputPath
 from utils.logger import logger
@@ -46,7 +47,8 @@ def process_files(request: InputModel):
 
         # Joined files after applying filters (if given) as per types and columns
         try:
-            final_processed_df = join_files(df_map,request.files_and_join_info.primary_file,request.files_and_join_info.secondary_files)
+            # final_processed_df = join_files(df_map,request.files_and_join_info.primary_file,request.files_and_join_info.secondary_files)
+            final_processed_df = join_dataframes(df_map,request.files_and_join_info.primary_file,request.files_and_join_info.secondary_files)
             logger.info(final_processed_df)
         except Exception as e:
             logger.error("Got error while joining file.")

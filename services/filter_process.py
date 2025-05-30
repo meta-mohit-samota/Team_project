@@ -167,6 +167,12 @@ class DataFrameFilterService:
 
         try:
             filter_expressions_strings = conditions.expressions
+            if(conditions.operator is None):
+                self._parse_single_expression(expression_str)
+                combined_expression = parsed_polars_expressions[0]
+                filtered_dataframe = dataframe.filter(combined_expression)
+
+
             logical_operator = LogicalOperator(conditions.operator)  # This is now a LogicalOperator Enum member
 
             # Step 1: Parse all string expressions into Polars expressions
@@ -196,7 +202,7 @@ class DataFrameFilterService:
 
                 operation_callable = logical_operation_map.get(logical_operator)
 
-                if operation_callable is None:
+                if operation_callable is None and len(filter_expressions_strings) > 1:
                     # This case should not be reached if LogicalOperator Enum is properly handled
                     logger.error(f"Unsupported logical operator: '{logical_operator}'")
                     raise ValueError(f"Unsupported logical operator: '{logical_operator}'. "

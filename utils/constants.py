@@ -17,3 +17,13 @@ class ComparisonOperator(Enum):
     GREATER_THAN_OR_EQUAL = ">="
     LESS_THAN = "<"
     LESS_THAN_OR_EQUAL = "<="
+
+class JoinType(str, Enum):
+    """
+    ✨ Defines valid SQL join types for robust and readable join operations.
+    """
+    INNER = "INNER"
+    LEFT = "LEFT"
+    RIGHT = "RIGHT"
+    FULL = "FULL"
+    CROSS = "CROSS" # Although CROSS JOINs don't typically have an ON clause, including for completeness.

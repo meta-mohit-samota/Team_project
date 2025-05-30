@@ -1,34 +1,3 @@
-# import polars as pl 
-# from polars import col 
-# from utils.logger import logger
-# from models.schemas import FilterConditions
-
-# def apply_filters(df: pl.DataFrame, conditions: FilterConditions) -> pl.DataFrame: 
-#     try: 
-#         expressions = [eval(expr.replace("and", "&").replace("or", "|")) for expr in conditions.expressions] 
-#         logger.info("kuch chala")
-#         op = conditions["operator"].lower() 
-#         if op == "and":
-#             combined = expressions[0] 
-#             for expr in expressions[1:]: 
-#                 combined = combined & expr  
-#         elif op == "or": 
-#             combined = expressions[0] 
-#             for expr in expressions[1:]: 
-#                 combined = combined | expr 
-#         else: 
-#             logger.error("Invalid operator") 
-#         logger.info("bef fil")
-#         logger.info(df)
-#         logger.info("aft fil")
-#         logger.info(df)
-
-#         return df.filter(combined) 
-#     except Exception as e: 
-#         logger.error(f"Filter error: {e}") 
-
-
-
 import polars as pl
 from models.schemas import FilterConditions
 from utils.logger import logger

@@ -1,0 +1,5 @@
+fastapi
+uvicorn[standard]
+polars[excel,pyarrow] # excel for .xlsx, pyarrow for general Arrow benefits and potentially other formats
+pydantic
+python-multipart

@@ -5,11 +5,4 @@ from models import schemas
 
 app = FastAPI(title="File Processing API")
 
-# @app.post("/",tags = ["Root"])
-# def upload_data(payload: schemas):
-#     try:
-#         return {"message":"Payload is valid","data":payload.model_dump()}
-#     except ValidationError as e:
-#         raise HTTPException(status_code = 400,detail = str(e))
-
 app.include_router(processor_router)

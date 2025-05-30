@@ -1,6 +1,7 @@
 from typing import List, Optional, Literal
 from pydantic import BaseModel, Field, model_validator
 
+# Secondary file to be joined with primary file
 class JoinFile(BaseModel):
     file_name: str = Field(..., alias="File name")
     join_columns: List[str] = Field(default_factory=list, alias="Join_columns")
@@ -14,7 +15,7 @@ class JoinFile(BaseModel):
 
     model_config = {"populate_by_name" : True}
 
-
+# Primary file to which secondary files will be joined
 class PrimaryFile(BaseModel):
     filename: str = Field(..., alias="Filename")
     join_columns: List[str] = Field(default_factory=list, alias="Join_columns")
